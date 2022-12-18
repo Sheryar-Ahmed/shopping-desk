@@ -11,7 +11,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        Welocome Code
+        <p className='text-3xl'>
+          Welocome Code
+        </p>
       </main>
     </>
   )
