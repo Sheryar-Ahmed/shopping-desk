@@ -8,5 +8,6 @@ const ProductSchema = new Schema({
     picture: String,
 });
 
-const Product = models?.Product || model('Product', ProductSchema);
+// the product afte the chain is the collection of the name;
+const Product = models?.products || model('products', ProductSchema);
 export default Product;
