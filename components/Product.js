@@ -8,7 +8,7 @@ const Product = () => {
             </div>
             <div>
                 <span className='font-bold text-lg'>Iphone 14 Pro</span>
-                <p className='text-clip'>
+                <p className='text-clip text-justify'>
                     Loreum ipsum has a, Loreum ipsum has a, Loreum ipsum has a, Loreum ipsum has a, Loreum ipsum has a, Loreum ipsum has a, Loreum ipsum has a.
                 </p>
                 <div className='flex flex-row justify-between items-center '>
