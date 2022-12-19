@@ -2,6 +2,7 @@ import axios from 'axios';
 import Head from 'next/head'
 import React from 'react';
 import Product from '../components/Product'
+import Search from '../components/Search';
 // import { initMongoose } from '../lib/mongoose';
 // import { FindAllProduct } from './api/products';
 
@@ -9,7 +10,7 @@ import Product from '../components/Product'
 export default function Home({ prod }) {
 
   // const [prod, setProd] = React.useState([]);
-
+  const [query, setQuery] = React.useState("");
   // const productInfo = async () => {
   //   const { data } = await axios.get('/api/products');
   //   setProd(data);
@@ -20,6 +21,10 @@ export default function Home({ prod }) {
   // }, []);
   //to remove duplicates from an array we use Set method, later we use these categories to filer the items according to each category.
   const categoryNames = [...new Set(prod.map((p) => p.category))];
+  //logic for filter out things
+  if (query) {
+    prod = prod.filter((item) => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  }
 
   return (
     <>
@@ -30,23 +35,28 @@ export default function Home({ prod }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className='p-0 m-0 w-full flex flex-col items-start'>
+        <div className='p-0 m-0 w-full flex flex-col items-start justify-center'>
+          <Search query={query} setQuery={setQuery} />
           {categoryNames.map((cat, i) =>
             <div key={i} className='w-full flex flex-col justify-start m-5'>
-              <h3 key={cat} className='text-2xl m-1 capitalize'>
-                {cat}
-              </h3>
-              <div key={i} className="flex flex-row justify-start items-center overflow-x-scroll snap-x scrollbar-hide">
-                {prod.filter((item) => item.category === cat).map((item) =>
-                  <Product propsData={item} />
-                )}
-              </div>
+              {prod.find((p) => p.category === cat) &&
+                <div>
+                  <h3 key={cat} className='text-2xl m-1 capitalize'>
+                    {cat}
+                  </h3>
+                  <div key={i} className="flex flex-row justify-start items-center overflow-x-scroll snap-x scrollbar-hide">
+                    {prod.filter((item) => item.category === cat).map((item) =>
+                      <Product propsData={item} />
+                    )}
+                  </div>
+                </div>
+              }
             </div>
           )}
         </div>
       </main>
     </>
-  )
+  );
 }
 
 //get the same data for each user
